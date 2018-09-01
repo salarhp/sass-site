@@ -23,7 +23,7 @@ newlines.
 These types of statements can be used anywhere in a Sass stylesheet:
 
 * [Variable declarations](../variables), like `$var: value`.
-* [Control at-rules](../at-rules/control), like `@if` and `@each`.
+* [Flow control at-rules](../at-rules/control), like `@if` and `@each`.
 * The [`@error`](../at-rules/error), [`@warn`](../at-rules/warn), and
   [`@debug`](../at-rules/debug) rules.
 
@@ -48,8 +48,8 @@ within a CSS statement at the top level:
 
 ### Other Statements
 
-* [Property declarations](../declarations) like `width: 100px` may only be used
-  within style rules and some CSS at-rules.
+* [Property declarations](../style-rules/declarations) like `width: 100px` may
+  only be used within style rules and some CSS at-rules.
 * The [`@extend`](../at-rules/extend) rule may only be used within style rules.
 
 ## Expressions
@@ -111,5 +111,5 @@ Sass defines syntax for a number of operations:
 * [Special functions](special-functions), like `calc(1px + 100%)` or
   `url(http://myapp.com/assets/logo.png)`, that have their own unique parsing
   rules.
-* [The parent selector](../parent-selector), `&`.
+* [The parent selector](../style-rules/parent-selector), `&`.
 * The value `!important`, which is parsed as an unquoted string.

@@ -109,12 +109,17 @@ module SassHelpers
     sass_sections = sass ? sass.split("\n---\n").map(&:strip) : []
 
     if css.nil? && autogen_css
-      if scss_sections.length != 1
+      sections = scss ? scss_sections : sass_sections
+      if sections.length != 1
         throw ArgumentError.new(
                 "Can't auto-generate CSS from more than one SCSS file.")
       end
 
-      css = Sass::Engine.new(scss, syntax: :scss, style: :expanded).render
+      css = Sass::Engine.new(
+        sections.first,
+        syntax: syntax || :scss,
+        style: :expanded
+      ).render
     end
     css_sections = css ? css.split("\n---\n").map(&:strip) : []
 
@@ -253,7 +258,7 @@ module SassHelpers
     end
   end
 
-  # Returns HTML for a note about the given implementation.
+  # Returns HTML for a note about a specific implementation.
   #
   # The contents should be supplied as a block.
   def impl_note
@@ -262,6 +267,29 @@ module SassHelpers
       content_tag(:strong, 'Implementation note:'),
       _render_markdown(capture {yield})
     ], class: 'impl-note')
+  end
+
+  # Returns HTML for a warning.
+  #
+  # The contents should be supplied as a block.
+  def warning
+    concat(content_tag :aside, [
+      content_tag(:i, 'TODO(jina): style this div'),
+      content_tag(:strong, 'Heads up!'),
+      _render_markdown(capture {yield})
+    ], class: 'warning')
+  end
+
+  # Returns HTML for a fun fact that's not directly relevant to the main
+  # documentation.
+  #
+  # The contents should be supplied as a block.
+  def fun_fact
+    concat(content_tag :aside, [
+      content_tag(:i, 'TODO(jina): style this div'),
+      content_tag(:strong, 'Fun fact:'),
+      _render_markdown(capture {yield})
+    ], class: 'fun-fact')
   end
 
   # Renders a status dashboard for each implementation's support for a feature.
